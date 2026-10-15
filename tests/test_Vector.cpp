@@ -1,5 +1,6 @@
 // Copyright 2026 Onotin M
-#include "pch.h"
+
+#include "gtest/gtest.h"
 
 #define MEMDATA_TESTS
 #define VECTOR_TESTS

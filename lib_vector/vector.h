@@ -1,4 +1,8 @@
 // Copyright 2026 Onotin M
+
+#ifndef VECTOR_H
+#define VECTOR_H
+
 #include "memdata.h"
 
 // --- Œ¡⁄ﬂ¬À≈Õ»≈  À¿——¿ ---
@@ -469,8 +473,10 @@ void Vector<vector_type>::shrink_to_fit() {
         }
     }
 }
-template class Vector<double>;
-template std::ostream& operator<< (std::ostream& out, const Vector<double>& v1);
-template std::istream& operator>> (std::istream& in, Vector<double>& v1);
-template void shuffle(Vector<double>&);
-template void quick_sort(Vector<double>&);
+//template class Vector<double>;
+//template std::ostream& operator<< (std::ostream& out, const Vector<double>& v1);
+//template std::istream& operator>> (std::istream& in, Vector<double>& v1);
+//template void shuffle(Vector<double>&);
+//template void quick_sort(Vector<double>&);
+
+#endif //VECTOR_H

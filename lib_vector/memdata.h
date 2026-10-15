@@ -1,4 +1,7 @@
 // Copyright 2026 Onotin M
+#ifndef MEMDATA_H
+#define MEMDATA_H
+
 #include <initializer_list>
 #include <iostream>
 #include <cstdlib>
@@ -69,7 +72,7 @@ int partition(vector_type* data, int left, int right);
 
 // --- РЕАЛИЗАЦИЯ ---
 
-int calculate_capacity(size_t size) {
+inline int calculate_capacity(size_t size) {
     size_t new_capacity = size / MEM_STEP;
     return (new_capacity + 1) * MEM_STEP;
 }
@@ -289,7 +292,9 @@ void quick_sort_recursive(vector_type* data, int left, int right) {
     }
 }
 
-// Инстанцирование
-template class MemData<double>;
-template void quick_sort(MemData<double>&);
-template void shuffle(MemData<double>&);
+//// Инстанцирование
+//template class MemData<double>;
+//template void quick_sort(MemData<double>&);
+//template void shuffle(MemData<double>&);
+
+#endif // MEMDATA_H
