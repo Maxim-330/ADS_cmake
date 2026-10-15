@@ -292,9 +292,5 @@ void quick_sort_recursive(vector_type* data, int left, int right) {
     }
 }
 
-//// Инстанцирование
-//template class MemData<double>;
-//template void quick_sort(MemData<double>&);
-//template void shuffle(MemData<double>&);
 
 #endif // MEMDATA_H
