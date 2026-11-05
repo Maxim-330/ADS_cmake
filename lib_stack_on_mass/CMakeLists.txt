@@ -1,0 +1,1 @@
+create_project_lib(lib_stack_on_mass)
