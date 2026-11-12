@@ -1,5 +1,8 @@
+// Copyright 2026 Maksim Onotin
+
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <stdexcept>
 #include <string>
 

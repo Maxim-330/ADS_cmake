@@ -1,8 +1,11 @@
+// Copyright 2026 Maksim Onotin
+
 #include <gtest/gtest.h>
 
+#include <stdexcept>
 #include <string>
 
-#include "Queue.h"
+#include "queue.h"
 
 TEST(QueueBasic, EmptyOnCreation) {
   Queue<int> q(3);

@@ -1,6 +1,7 @@
-// Copyright 2026 Onotin M
-#ifndef MEMDATA_H
-#define MEMDATA_H
+// Copyright 2026 Maksim Onotin
+
+#ifndef LIB_VECTOR_MEMDATA_H_
+#define LIB_VECTOR_MEMDATA_H_
 
 #include <cstdlib>
 #include <ctime>
@@ -14,7 +15,6 @@
 template <typename vector_type>
 class Vector;
 
-// --- ОБЪЯВЛЕНИЕ КЛАССА ---
 template <typename vector_type>
 class MemData {
   vector_type* _data;
@@ -22,7 +22,7 @@ class MemData {
   size_t _capacity;
 
  public:
-  MemData(size_t size = 0);
+  explicit MemData(size_t size = 0);
   MemData(std::initializer_list<vector_type>);
   MemData(const vector_type*, size_t);
   MemData(const MemData&);
@@ -32,10 +32,8 @@ class MemData {
   inline bool is_empty() const noexcept { return (_size == 0); }
   inline size_t get_size() const noexcept { return _size; }
   inline size_t get_capacity() const noexcept { return _capacity; }
-  inline const vector_type* const get_data_const() const noexcept {
-    return _data;
-  }
-  inline vector_type* const get_data_changeable() noexcept { return _data; }
+  inline const vector_type* get_data_const() const noexcept { return _data; }
+  inline vector_type* get_data_changeable() noexcept { return _data; }
 
   void set_memory(size_t) noexcept;
   void reset_memory(size_t size, size_t start_index = 0);
@@ -64,18 +62,16 @@ class MemData {
   inline bool is_full() const noexcept { return (_size >= _capacity); }
 };
 
-// Объявления вспомогательных функций
 inline int calculate_capacity(size_t size);
+
 template <typename vector_type>
 void quick_sort_recursive(vector_type* data, int left, int right);
 template <typename vector_type>
 int partition(vector_type* data, int left, int right);
 
-// --- РЕАЛИЗАЦИЯ ---
-
 inline int calculate_capacity(size_t size) {
   size_t new_capacity = size / MEM_STEP;
-  return (new_capacity + 1) * MEM_STEP;
+  return static_cast<int>((new_capacity + 1) * MEM_STEP);
 }
 
 template <typename vector_type>
@@ -250,7 +246,7 @@ void quick_sort(MemData<vector_type>& md) {
   if (md._size <= 1) {
     return;
   }
-  quick_sort_recursive(md._data, 0, md._size - 1);
+  quick_sort_recursive(md._data, 0, static_cast<int>(md._size) - 1);
 }
 
 template <typename vector_type>
@@ -258,9 +254,9 @@ void shuffle(MemData<vector_type>& md) {
   if (md._size <= 1) {
     return;
   }
-  srand(time(NULL));
+  unsigned int seed = static_cast<unsigned int>(time(NULL));
   for (size_t i = md._size - 1; i > 0; i--) {
-    size_t j = rand() % (i + 1);
+    size_t j = rand_r(&seed) % (i + 1);
     std::swap(md._data[i], md._data[j]);
   }
 }
@@ -291,4 +287,4 @@ void quick_sort_recursive(vector_type* data, int left, int right) {
   }
 }
 
-#endif  // MEMDATA_H
+#endif  // LIB_VECTOR_MEMDATA_H_

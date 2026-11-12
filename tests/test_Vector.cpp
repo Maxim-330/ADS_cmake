@@ -1,6 +1,8 @@
-// Copyright 2026 Onotin M
+// Copyright 2026 Maksim Onotin
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
+
+#include <utility>
 
 #define MEMDATA_TESTS
 #define VECTOR_TESTS
@@ -113,8 +115,6 @@ TEST(ClassMemData, can_is_empty) {
   EXPECT_FALSE(D6.is_empty());
   EXPECT_FALSE(D7.is_empty());
 }
-
-// TEST(ClassMemData, can_is_full) { //убрали, лишний
 
 TEST(ClassMemData, can_set_memory_for_empty) {
   MemData<double> D1;
@@ -335,13 +335,13 @@ TEST(FunctionsForMemData, can_quick_sort) {
   double example1[6] = {1, 2, 3, 4, 5, 6};
   double example2[5] = {2, 2, 2, 2, 2};
   double example3[6] = {1, 2, 2, 3, 4, 100000};
-  srand(time(NULL));
+  unsigned int seed = static_cast<unsigned int>(time(NULL));
 
-  size_t random_size = (static_cast<size_t>(rand() % 100)) + 1;
+  size_t random_size = (static_cast<size_t>(rand_r(&seed) % 100)) + 1;
   double* random_array = new double[random_size];
 
   for (size_t i = 0; i < random_size; i++) {
-    double zero_to_one = static_cast<double>(rand()) / RAND_MAX;
+    double zero_to_one = static_cast<double>(rand_r(&seed)) / RAND_MAX;
     random_array[i] = zero_to_one * 200.0 - 100.0;
   }
   MemData<double> DR(random_array, random_size);
@@ -399,7 +399,7 @@ TEST(FunctionsForMemData, can_shuffle) {
 #endif
 
 #ifdef VECTOR_TESTS
-#include "vector.h"
+#include "lib_vector/vector.h"
 
 TEST(ClassVector, can_create_with_default_constructor) {
   Vector<double> V1;
@@ -454,8 +454,8 @@ TEST(ClassVector, can_create_with_copy_constructor) {
   Vector<double> V2(V1);
   double example1[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
-  EXPECT_EQ(V1.get_size(), V2.get_size(), 16);
-  EXPECT_EQ(V1.get_capacity(), V2.get_capacity(), MEM_STEP * 2);
+  EXPECT_EQ(V1.get_size(), V2.get_size());
+  EXPECT_EQ(V1.get_capacity(), V2.get_capacity());
   for (size_t i = 0; i < V1.get_size(); i++) {
     EXPECT_EQ(V1[i], example1[i]);
   }
@@ -499,8 +499,6 @@ TEST(ClassVector, can_is_empty) {
   EXPECT_FALSE(V6.is_empty());
   EXPECT_FALSE(V7.is_empty());
 }
-
-// TEST(ClassVector, can_is_full) { //убрали тест как и у MemData<double>
 
 TEST(ClassVector, can_get_front) {
   Vector<double> V1({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});

@@ -1,4 +1,8 @@
-#pragma once
+// Copyright 2026 Maksim Onotin
+
+#ifndef QUEUE_QUEUE_H_
+#define QUEUE_QUEUE_H_
+
 #include <cstddef>
 #include <stdexcept>
 
@@ -11,7 +15,7 @@ class Queue {
   T* _data;
 
  public:
-  Queue(size_t size);
+  explicit Queue(size_t size);
   Queue(const Queue& other);
   ~Queue();
 
@@ -78,3 +82,5 @@ const T& Queue<T>::front() const {
   if (is_empty()) throw std::underflow_error("Queue is empty");
   return _data[_front];
 }
+
+#endif  // QUEUE_QUEUE_H_

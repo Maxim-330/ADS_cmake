@@ -1,4 +1,8 @@
-#pragma once
+// Copyright 2026 Maksim Onotin
+
+#ifndef STACK_LIB_STACK_H_
+#define STACK_LIB_STACK_H_
+
 #include <cstddef>
 #include <stdexcept>
 
@@ -9,7 +13,7 @@ class StackOnMass {
   size_t _top;
 
  public:
-  StackOnMass(size_t size);
+  explicit StackOnMass(size_t size);
   StackOnMass(const StackOnMass& other);
   ~StackOnMass();
 
@@ -55,7 +59,7 @@ T StackOnMass<T>::pop() {
   if (is_empty()) {
     throw std::underflow_error("Stack underflow: cannot pop from empty stack");
   }
-  return _data[_top--];
+  return _data[--_top];
 }
 
 template <class T>
@@ -75,3 +79,5 @@ template <class T>
 inline bool StackOnMass<T>::is_full() const noexcept {
   return _top == _size;
 }
+
+#endif  // STACK_LIB_STACK_H_

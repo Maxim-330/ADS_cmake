@@ -1,4 +1,4 @@
-// Copyright 2024 Marina Usova
+// Copyright 2026 Onotin Maxim
 
 #include "../lib_algoritms/algoritms.h"
 

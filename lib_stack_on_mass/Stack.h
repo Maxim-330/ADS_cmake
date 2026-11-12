@@ -1,4 +1,8 @@
-#pragma once
+// Copyright 2026 Maksim Onotin
+
+#ifndef LIB_STACK_ON_MASS_STACK_H_
+#define LIB_STACK_ON_MASS_STACK_H_
+
 #include <cstddef>
 #include <stdexcept>
 
@@ -9,7 +13,7 @@ class StackOnMass {
   size_t _top;
 
  public:
-  StackOnMass(size_t size);
+  explicit StackOnMass(size_t size);
   StackOnMass(const StackOnMass& other);
   ~StackOnMass();
 
@@ -75,3 +79,5 @@ template <class T>
 inline bool StackOnMass<T>::is_full() const noexcept {
   return _top == _size;
 }
+
+#endif  // LIB_STACK_ON_MASS_STACK_H_
