@@ -1,2 +1,3 @@
 // Copyright 2026 Onotin M
-#include "vector.h"
+
+#include "../lib_vector/vector.h"

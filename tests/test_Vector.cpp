@@ -8,7 +8,7 @@
 #define VECTOR_TESTS
 
 #ifdef MEMDATA_TESTS
-#include "memdata.h"
+#include "../lib_vector/memdata.h"
 
 TEST(FunctionsForMemData, can_calculate_capacity) {
   int size1 = 16;
@@ -399,7 +399,7 @@ TEST(FunctionsForMemData, can_shuffle) {
 #endif
 
 #ifdef VECTOR_TESTS
-#include "lib_vector/vector.h"
+#include "../lib_vector/vector.h"
 
 TEST(ClassVector, can_create_with_default_constructor) {
   Vector<double> V1;

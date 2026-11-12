@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "algoritms.h"
+#include "../lib_algoritms/algoritms.h"
 
 int main() {
   int a, b;

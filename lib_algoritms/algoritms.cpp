@@ -3,6 +3,7 @@
 #include "../lib_algoritms/algoritms.h"
 
 #include <stdexcept>
+#include <string>
 
 #include "../lib_stack_on_mass/Stack.h"
 
@@ -16,7 +17,7 @@ float division(int a, int b) {
 bool check_breckets(std::string expression) {
   StackOnMass<char> stack(expression.length());
 
-  for (int i = 0; i < expression.length(); i++) {
+  for (size_t i = 0; i < expression.length(); i++) {
     char sym = expression[i];
 
     if (sym == '(' || sym == '[' || sym == '{') {

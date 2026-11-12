@@ -1,11 +1,13 @@
 // Copyright 2026 Onotin M
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef LIB_VECTOR_VECTOR_H_
+#define LIB_VECTOR_VECTOR_H_
 
-#include "memdata.h"
+#include <utility>
 
-// --- ОБЪЯВЛЕНИЕ КЛАССА ---
+#include "../lib_vector/memdata.h"
+
+// --- CLASS DECLARATION ---
 template <typename vector_type>
 class Vector {
  protected:
@@ -14,27 +16,27 @@ class Vector {
   size_t _back;
 
  public:
-  Vector(size_t size = 0);
+  explicit Vector(size_t size = 0);
   Vector(std::initializer_list<vector_type> list);
   Vector(vector_type* array, size_t size);
   Vector(const Vector<vector_type>& other);
   Vector(Vector<vector_type>&& other) noexcept;
 
-  // Методы доступа
+  // Access methods
   inline bool is_empty() const noexcept { return _mem.is_empty(); }
   inline size_t get_size() const noexcept { return _mem.get_size(); }
   inline size_t get_capacity() const noexcept { return _mem.get_capacity(); }
 
-  // Дружественные функции для тестов
+  // Friend functions for tests
   const MemData<vector_type>& get_mem_original() const { return _mem; }
 
-  // Геттеры/Сеттеры элементов
+  // Element getters/setters
   vector_type get_front() const;
   vector_type get_back() const;
   vector_type& front_ref();
   vector_type& back_ref();
 
-  // Вставка
+  // Insertion
   void push_front(vector_type element) noexcept;
   void push_front_many(vector_type* elements, size_t size) noexcept;
   void push_back(vector_type element) noexcept;
@@ -42,7 +44,7 @@ class Vector {
   void insert(vector_type element, size_t i);
   void insert_many(vector_type* elements, size_t size, size_t i);
 
-  // Удаление
+  // Removal
   void pop_front();
   void pop_front_many(size_t count);
   void pop_back();
@@ -50,20 +52,20 @@ class Vector {
   void erase(size_t i);
   void erase_many(size_t i, size_t count);
 
-  // Операторы
+  // Operators
   Vector<vector_type>& operator=(const Vector<vector_type>& other) noexcept;
   Vector<vector_type>& operator=(Vector<vector_type>&& other) noexcept;
   vector_type& operator[](size_t i) noexcept;
   const vector_type& operator[](size_t i) const noexcept;
 
-  // Вспомогательный метод для доступа к индексу в кольцевом буфере
+  // Helper to get index in ring buffer
   size_t get_mem_index(size_t i) const noexcept {
     return (_front + i) % _mem.get_capacity();
   }
 
   void shrink_to_fit();
 
-  // Друзья
+  // Friends
   template <typename T>
   friend void quick_sort(Vector<T>& vector);
   template <typename T>
@@ -74,7 +76,7 @@ class Vector {
   friend std::istream& operator>>(std::istream& in, Vector<T>& vector);
 };
 
-// РЕАЛИЗАЦИЯ
+// IMPLEMENTATION
 
 template <typename vector_type>
 Vector<vector_type>::Vector(size_t size) {
@@ -440,15 +442,16 @@ std::istream& operator>>(std::istream& in, Vector<vector_type>& vector) {
   }
   return in;
 }
+
 template <typename vector_type>
 void Vector<vector_type>::shrink_to_fit() {
-  // Удаляем нули с конца
+  // Remove trailing zeros
   while (_mem.get_size() > 0 &&
          (*this)[_mem.get_size() - 1] == vector_type(0)) {
     pop_back();
   }
 
-  // Если вместимость больше чем нужно перевыделяем память
+  // If capacity is larger than needed, reallocate
   if (_mem.get_capacity() > _mem.get_size()) {
     _mem.reset_memory(_mem.get_size(), _front);
     _front = 0;
@@ -460,4 +463,4 @@ void Vector<vector_type>::shrink_to_fit() {
   }
 }
 
-#endif  // VECTOR_H
+#endif  // LIB_VECTOR_VECTOR_H_

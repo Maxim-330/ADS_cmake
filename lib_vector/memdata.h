@@ -135,7 +135,7 @@ MemData<vector_type>::~MemData() {
 template <typename vector_type>
 void MemData<vector_type>::set_memory(size_t size) noexcept {
   _size = size;
-  _capacity = calculate_capacity(size);
+  _capacity = static_cast<size_t>(calculate_capacity(size));
   if (_data) {
     delete[] _data;
   }
@@ -148,7 +148,7 @@ void MemData<vector_type>::reset_memory(size_t size, size_t start_index) {
     throw std::invalid_argument(
         "ERROR: Can't reset memory! start_index >= size");
   }
-  size_t new_capacity = calculate_capacity(size);
+  size_t new_capacity = static_cast<size_t>(calculate_capacity(size));
   size_t old_capacity = _capacity;
   size_t copy_size = _size;
 

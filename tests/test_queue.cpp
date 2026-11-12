@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "queue.h"
+#include "../Queue/queue.h"
 
 TEST(QueueBasic, EmptyOnCreation) {
   Queue<int> q(3);
