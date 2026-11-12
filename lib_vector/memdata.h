@@ -71,7 +71,7 @@ int partition(vector_type* data, int left, int right);
 
 inline int calculate_capacity(size_t size) {
   size_t new_capacity = size / MEM_STEP;
-  return static_cast<int>((new_capacity + 1) * MEM_STEP);
+  return static_cast<int>(static_cast<size_t>(new_capacity + 1) * MEM_STEP);
 }
 
 template <typename vector_type>
