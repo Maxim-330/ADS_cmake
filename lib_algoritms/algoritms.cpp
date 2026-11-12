@@ -1,39 +1,39 @@
 // Copyright 2024 Marina Usova
 
-#include <stdexcept>
 #include "../lib_algoritms/algoritms.h"
+
+#include <stdexcept>
+
 #include "../lib_stack_on_mass/Stack.h"
 
 float division(int a, int b) {
-    if (b == 0) {
-        throw std::invalid_argument("Input Error: can't divide by zero!");
-    }
-    return static_cast<float>(a) / b;
+  if (b == 0) {
+    throw std::invalid_argument("Input Error: can't divide by zero!");
+  }
+  return static_cast<float>(a) / b;
 }
 
 bool check_breckets(std::string expression) {
-    StackOnMass<char> stack(expression.length());
+  StackOnMass<char> stack(expression.length());
 
-    for (int i = 0; i < expression.length(); i++) {
-        char sym = expression[i];
+  for (int i = 0; i < expression.length(); i++) {
+    char sym = expression[i];
 
-        if (sym == '(' || sym == '[' || sym == '{') {
-            stack.push(sym);
-        }
-        else if (sym == ')' || sym == ']' || sym == '}') {
-            if (stack.is_empty()) {
-                return false;
-            }
+    if (sym == '(' || sym == '[' || sym == '{') {
+      stack.push(sym);
+    } else if (sym == ')' || sym == ']' || sym == '}') {
+      if (stack.is_empty()) {
+        return false;
+      }
 
-            char last = stack.pop();
+      char last = stack.pop();
 
-            if ( (sym == ')' && last != '(') ||
-                (sym == ']' && last != '[') ||
-                (sym == '}' && last != '{') ){
-                return false;
-            }
-        }
+      if ((sym == ')' && last != '(') || (sym == ']' && last != '[') ||
+          (sym == '}' && last != '{')) {
+        return false;
+      }
     }
+  }
 
-    return stack.is_empty();
+  return stack.is_empty();
 }
